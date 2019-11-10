@@ -1,6 +1,13 @@
 # **SDK for Unity 5.6.x**
 
-## **Android Platform**
+## **Table of Content**
+* [**Tools**](#-Tools)
+* [**Source Unity**](#Source-Unity)
+* [**Setting**](#Setting)
+* [**Android Plugin**](#Android-Plugin)
+* [**AndroidManifest**](#AndroidManifest)
+* [**Build Gradle**](#Build-Gradle)
+* [**Q&A**](#Q&A)
 
 ### **Tools**
 
@@ -40,8 +47,8 @@ using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.U
 
 ### **Setting**
 
-Choose Minimum API Level: Android 4.1
-Choose Target API Level: Automatic (highest installed)
+* Choose Minimum API Level: `Android 4.1 'Jelly Bean'`
+* Choose Target API Level: `Automatic (highest installed)`
 
 ![](Identification.png)
 
@@ -51,7 +58,7 @@ Copy 4 files: `AndroidManifest.xml`, `mainTemplate.gradle`, `unity.aar`, `VTCSdk
 
 ![](./plugin-android.png)
 
-#### **Manifest**
+#### **AndroidManifest**
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionName="1.0" android:versionCode="1">
@@ -187,7 +194,7 @@ Copy 4 files: `AndroidManifest.xml`, `mainTemplate.gradle`, `unity.aar`, `VTCSdk
 </manifest>
 ```
 
-#### **Gradle**
+#### **Build Gradle**
 ```js
 buildscript {
 	repositories {
