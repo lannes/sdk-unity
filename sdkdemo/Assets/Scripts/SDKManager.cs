@@ -58,6 +58,7 @@ public class SDKManager: MonoBehaviour {
 
 	public static int SIGNIN_CODE = 100;
 	public static int OPENSHOP_CODE = 200;
+	public static int SIGNOUT_CODE = 300;
 
 	public const string CORE_PACKAGE = "com.strategy.intecom.vtc.tracking";
 	public const string SDK_MANAGER = CORE_PACKAGE + ".SDKManager";
@@ -65,6 +66,7 @@ public class SDKManager: MonoBehaviour {
 	public const string UNITY_SDK_MANAGER = MAIN_PACKAGE + ".UnitySDKManager";
 	public static IOnActivityResult m_iOnActivityResult = null;
  
+	/*
 	class SignOutCallback: AndroidJavaProxy {
 		public SignOutCallback() : base(SDK_MANAGER + "$onSignOutCallBack") { }
 
@@ -80,6 +82,7 @@ public class SDKManager: MonoBehaviour {
 			Debug.Log("onDidPurchaseSuccessfully");
 		}
 	}
+	*/
 
 	class AndroidPluginCallback: AndroidJavaProxy {
 		public AndroidPluginCallback(): base(MAIN_PACKAGE + ".PluginCallback") {}
@@ -109,7 +112,7 @@ public class SDKManager: MonoBehaviour {
 
 	#endif
 
-	public static void SetEnviroment(int env) {
+	public static void SetEnvironment(int env) {
 		#if UNITY_ANDROID
 
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
@@ -130,15 +133,23 @@ public class SDKManager: MonoBehaviour {
 	}
 
 	public static void SetClientId(string clientId) {
+		#if UNITY_ANDROID
+		
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
 			VTCString.SetStatic("CLIENT_ID", clientId);
 		}
+
+		#endif
 	}
 
 	public static void SetClientSecret(string secretId) {
+		#if UNITY_ANDROID
+
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
 			VTCString.SetStatic("CLIENT_SECRET", secretId);
 		}
+
+		#endif
 	}
 
 	public static void SignIn(AndroidJavaObject activity, IOnActivityResult iOnActivityResult) {
@@ -166,8 +177,13 @@ public class SDKManager: MonoBehaviour {
 		#if UNITY_ANDROID
 		m_iOnActivityResult = iOnActivityResult;
 
+		/*
+		using (AndroidJavaClass sdkManager = new AndroidJavaClass(SDK_MANAGER)) {
+			sdkManager.CallStatic("setDidPurchaseSuccessfully", new DidPurchaseSuccessfullyCallback());
+		}
+		*/
+
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
-			unitySdkManager.CallStatic("setDidPurchaseSuccessfully", new DidPurchaseSuccessfullyCallback());
 			unitySdkManager.CallStatic("openShop", activity);
 		}
 
@@ -187,13 +203,16 @@ public class SDKManager: MonoBehaviour {
 	public static void SignOut() {
 		#if UNITY_ANDROID
 
-		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
-			AndroidJavaClass callback = new AndroidJavaClass(SDK_MANAGER + "$onSignOutCallBack");
+		/*
+		using (AndroidJavaClass sdkManager = new AndroidJavaClass(SDK_MANAGER)) {
+			sdkManager.CallStatic("setOnSignOutCallBack", new SignOutCallback());
+		}
+		*/
 		
-			unitySdkManager.CallStatic("setOnSignOutCallBack", new SignOutCallback());
+		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("SignOut");
 		}
-
+		
 		#endif
 	}
 }

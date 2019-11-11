@@ -14,7 +14,7 @@ public class Main : MonoBehaviour, IOnActivityResult {
   	void CallNativePlugin() {
 		#if UNITY_ANDROID
 
-		SDKManager.SetEnviroment (SDKManager.ENVIRONMENT_SANDBOX);
+		SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
 
 		using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 			using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
