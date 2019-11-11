@@ -11,39 +11,8 @@
 
 ### **Tools**
 
-* Unity **5.6.5p1**
-* Android Studio **3.5.x**
-
-### **Source Unity**
-
-Copy `SDKManager.cs` into the `Scripts` folder.
-
-Set enviroment
-```cs
-SDKManager.setEnviroment (SDKManager.ENVIRONMENT_SANDBOX);
-```
-
-Init SDK
-```cs
-#if UNITY_ANDROID
-using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-    using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {        
-        SDKManager.initStartSDK (activity);
-    }
-}
-#endif
-```
-
-SignIn
-```csharp
-#if UNITY_ANDROID
-using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-    using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {        
-        SDKManager.SignIn (activity);
-    }
-}
-#endif
-```
+* [Unity **5.6.5p1**](https://unity3d.com/unity/qa/patch-releases/5.6.5p1)
+* [Android Studio **3.5.x**](https://developer.android.com/studio)
 
 ### **Setting**
 
@@ -54,241 +23,86 @@ using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.U
 
 ### **Android Plugin**
 
-Copy 4 files: `AndroidManifest.xml`, `mainTemplate.gradle`, `unity.aar`, `VTCSdk.aar` into the `Assets/Plugin/Android` folder as the below image:
+Copy 4 files: [AndroidManifest.xml](./sdkdemo/Assets/Plugins/Android/AndroidManifest.xml), [mainTemplate.gradle](./sdkdemo/Assets/Plugins/Android/mainTemplate.gradle), [unity.aar](./sdkdemo/Assets/Plugins/Android/unity.aar), [VTCSdk.aar](./sdkdemo/Assets/Plugins/Android/VTCSdk.aar) into the `Assets/Plugin/Android` folder as the below image:
 
 ![](./plugin-android.png)
 
 #### **AndroidManifest**
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" android:versionName="1.0" android:versionCode="1">
-  <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
-  <application android:name="com.strategy.intecom.vtc.tracking.SDKManager"
-      android:theme="@style/UnityThemeSelector" android:icon="@drawable/app_icon" android:label="@string/app_name" android:isGame="true" android:banner="@drawable/app_banner">
-    <activity android:label="@string/app_name" android:screenOrientation="fullSensor" android:launchMode="singleTask" android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density" android:name=".UnityPlayerActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-        <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-      </intent-filter>
-      <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
-    </activity>
-    <activity android:name="com.software.intecom.vtc.unity.UnityActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-  
-    <activity
-            android:name="com.strategy.intecom.vtc.login.Authen"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <activity
-            android:name="com.strategy.intecom.vtc.login.Login"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.strategy.intecom.vtc.login.RegisterNew"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.strategy.intecom.vtc.login.ActiveOtp"
-            android:configChanges="orientation|keyboard|keyboardHidden|screenLayout|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.resetpassword.ResetPassword"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.ReLogin"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.LoginOtp"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.LoginOtpNew"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.register.Register"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.changepassword.ChangePassword"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.resetpassword.ResetPasswordType"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.strategy.intecom.vtc.login.resetpassword.ResetPasswordOTP"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.strategy.intecom.vtc.login.password.RegisterPassword"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.strategy.intecom.vtc.login.password.TermUse"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.strategy.intecom.vtc.login.UpdateAccount"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            tools:replace="android:theme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-  </application>
-  <uses-feature android:name="android.software.leanback" android:required="false" />
-
-  <uses-feature android:glEsVersion="0x00020000" />
-  <uses-feature android:name="android.hardware.vulkan" android:required="false" />
-  <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-  <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false" />
-  <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
-</manifest>
-```
+[AndroidManifest.xml](./sdkdemo/Assets/Plugins/Android/AndroidManifest.xml)
 
 #### **Build Gradle**
-```js
-buildscript {
-	repositories {
-		maven { url "https://maven.google.com/"}
-		jcenter()
-		google()
-	}
 
-	dependencies {
-		classpath 'com.android.tools.build:gradle:3.1.4'
-		classpath 'com.google.gms:google-services:3.2.0'
-	}
-}
+Use the template to override gradle.build file generated by Unity.
 
-allprojects {
-	repositories {
-        maven { url 'https://maven.google.com' }
-        jcenter()
-        flatDir {
-            dirs 'libs'
-        }
-	}
-}
+[mainTemplate.gradle](./sdkdemo/Assets/Plugins/Android/mainTemplate.gradle)
 
-apply plugin: 'com.android.application'
+Please without modify variables in the `**` symbols, else Unity will export the `build.gradle` file incorrect.
 
-dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
-	//   implementation(':VTCSdkLibNoTelco')
+### **Source Unity**
 
-    implementation('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
-        // exclusion is not necessary, but generally a good idea.
-        exclude group: 'com.google.android', module: 'support-v4'
+Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` folder.
+
+**Set enviroment**
+```cs
+SDKManager.SetEnviroment (SDKManager.ENVIRONMENT_SANDBOX);
+```
+
+**Init SDK**
+```cs
+#if UNITY_ANDROID
+using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+    using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+        SDKManager.InitStartSDK (activity);
+        SDKManager.SetClientId (<CLIENT_ID>);
+        SDKManager.SetClientSecret (<CLIENT_SECRET>);
     }
-//
-//    compile 'com.google.android.gms:play-services:12.0.1'
-    implementation 'com.google.android.gms:play-services-safetynet:12.0.1'
-    implementation 'com.google.android.gms:play-services-analytics:12.0.1'
-    implementation 'com.google.android.gms:play-services-identity:12.0.1'
-    implementation 'com.google.android.gms:play-services-plus:12.0.1'
-    implementation 'com.google.android.gms:play-services-ads:12.0.1'
-    implementation 'com.google.android.gms:play-services-auth:12.0.1'
-    implementation 'com.google.android.gms:play-services-gcm:12.0.1'
-//
-    implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.squareup.okhttp:okhttp:2.6.0'
-    implementation 'com.appsflyer:af-android-sdk:4.8.1'
-    implementation 'com.google.code.gson:gson:2.7'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
+}
+#endif
+```
 
-    // retrofit, gson
-    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
-**DEPS**}
+**Implement IOnActivityResult to receive from VTCSdk**
+```csharp
+public class Main : MonoBehaviour, IOnActivityResult {
+```
 
-android {
-	compileSdkVersion **APIVERSION**
-	buildToolsVersion '**BUILDTOOLS**'
+**SignIn**
+```csharp
+#if UNITY_ANDROID
 
-	defaultConfig {
-		minSdkVersion 16
-		multiDexEnabled true		
-		targetSdkVersion **TARGETSDKVERSION**
-		applicationId '**APPLICATIONID**'
-	}
+public void onMessage(string message, int requestCode) {
+    if (requestCode == SDKManager.SIGNIN_CODE) {
+        Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
+        Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
+        Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
+    }
+}
 
-	lintOptions {
-		abortOnError false
-	}
+#endif
 
-	aaptOptions {
-		noCompress '.unity3d', '.ress', '.resource', '.obb'
-	}
+public void SignIn() {
+    #if UNITY_ANDROID
 
-**SIGN**
-	buildTypes {
-		debug {
-			jniDebuggable true
-		}
-		release {
-			// Set minifyEnabled to true if you want to run ProGuard on your project
-			//minifyEnabled false
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-unity.txt'
-			**SIGNCONFIG**
-		}
-	}
+    using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+            SDKManager.SignIn (activity, this);
+        }
+    }
+
+    #endif
 }
 ```
 
-Please without modify variables in the `**` symbols, else Unity will export the `build.gradle` file incorrect.
+SignOut
+```csharp
+public void SignOut() {
+    #if UNITY_ANDROID
+    
+    SDKManager.SignOut();		
+    
+    #endif
+}
+```
 
 ### **Q&A**
 
