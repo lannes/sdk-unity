@@ -1,12 +1,17 @@
 # **SDK for Unity 5.6.x**
 
 ## **Table of Content**
-* [**Tools**](#-Tools)
-* [**Source Unity**](#Source-Unity)
+* [**Tools**](#Tools)
 * [**Setting**](#Setting)
-* [**Android Plugin**](#Android-Plugin)
-* [**AndroidManifest**](#AndroidManifest)
-* [**Build Gradle**](#Build-Gradle)
+    * [**Android Plugin**](#Android-Plugin)
+    * [**AndroidManifest**](#AndroidManifest)
+    * [**Build Gradle**](#Build-Gradle)
+* [**Source Unity**](#Source-Unity)
+    * [**Set enviroment**](#Set-enviroment)
+    * [**Start SDK**](#Start-SDK)
+    * [**Implement interface**](#Implement-interface)
+    * [**SignIn**](#SignIn)
+    * [**SignOut**](#SignOut)
 * [**Q&A**](#Q&A)
 
 ### **Tools**
@@ -43,12 +48,12 @@ Please without modify variables in the `**` symbols, else Unity will export the 
 
 Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` folder.
 
-**Set enviroment**
+#### **Set enviroment**
 ```cs
 SDKManager.SetEnviroment (SDKManager.ENVIRONMENT_SANDBOX);
 ```
 
-**Init SDK**
+#### **Start SDK**
 ```cs
 #if UNITY_ANDROID
 using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
@@ -61,12 +66,15 @@ using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.U
 #endif
 ```
 
-**Implement IOnActivityResult to receive from VTCSdk**
+#### **Implement interface**
+
+Implement IOnActivityResult interface to receive result from the VTCSdk library.
+
 ```csharp
-public class Main : MonoBehaviour, IOnActivityResult {
+public class Main : MonoBehaviour, IOnActivityResult
 ```
 
-**SignIn**
+#### **SignIn**
 ```csharp
 #if UNITY_ANDROID
 
@@ -93,7 +101,8 @@ public void SignIn() {
 }
 ```
 
-SignOut
+#### **SignOut**
+
 ```csharp
 public void SignOut() {
     #if UNITY_ANDROID
