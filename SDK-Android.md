@@ -136,7 +136,7 @@ public void SignOut() {
     
     **A:** While `VTCSdk.aar` main focus on native Android then `unity.aar` is the bridge plugin to Unity, it support callback method instead `onActivityResult` when sign in or payment.
     
-    `com.software.intecom.vtc.unity.UnityActivity` in `unity.aar` will receive `onActivityResult` from `VTCSdk.aar` then send message to Unity over callback method. It don't require must extends or modify `UnityPlayerActivity` class.
+    `com.software.intecom.vtc.unity.UnityActivity` in `unity.aar` will receive `onActivityResult` from `VTCSdk.aar` then send message to Unity over callback method. **Use `unity.aar` developer don't must extends or modify `UnityPlayerActivity` class**.
 
     Remember add declare the line `<activity android:name="com.software.intecom.vtc.unity.UnityActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>` in the `AndroidManifest.xml` file.
 
