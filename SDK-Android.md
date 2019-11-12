@@ -29,7 +29,7 @@
 
     ![](Identification.png)
 
-    Copy 4 files: [AndroidManifest.xml](./sdkdemo/Assets/Plugins/Android/AndroidManifest.xml), [mainTemplate.gradle](./sdkdemo/Assets/Plugins/Android/mainTemplate.gradle), [unity.aar](./sdkdemo/Assets/Plugins/Android/unity.aar), [VTCSdk.aar](./sdkdemo/Assets/Plugins/Android/VTCSdk.aar) into the `Assets/Plugin/Android` folder as the below image:
+    Copy 4 files: `AndroidManifest.xml`, `mainTemplate.gradle`, `unity.aar`, `VTCSdk.aar` into the `Assets/Plugin/Android` folder as the below image:
 
     ![](./plugin-android.png)
 
@@ -83,7 +83,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
 
-    Please contact we to get two values below:
+    Please contact us to get two values below:
     * CLIENT_ID
     * CLIENT_SECRET
 
@@ -95,7 +95,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     public class Main : MonoBehaviour, IOnActivityResult {
 
         public void onMessage(string message, int requestCode) {
-            
+
         }
 
     }
@@ -110,6 +110,9 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
             Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
             Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
             Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
+
+            // If game use VTC's payment please contact us to get more information.
+			// SDKManager.UpdateGameInfo(id, data);
         }
     }
 

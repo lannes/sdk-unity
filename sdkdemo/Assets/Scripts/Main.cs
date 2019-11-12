@@ -8,6 +8,9 @@ public class Main : MonoBehaviour, IOnActivityResult {
 			Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
 			Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
 			Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
+
+			// If game use VTC's payment please contact us to get more information.
+			// SDKManager.UpdateGameInfo(id, data);
 		}
 	}
 
