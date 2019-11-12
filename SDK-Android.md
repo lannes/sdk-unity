@@ -7,7 +7,7 @@
     * [**AndroidManifest**](#AndroidManifest)
     * [**Build Gradle**](#Build-Gradle)
     * [**Export Project**](#Export-Project)
-* [**Source code for Unity**](#Source-code-for-Unity)
+* [**Unity code**](#Unity-code)
     * [**SetEnvironment**](#SetEnvironment)
     * [**InitStartSDK**](#InitStartSDK)
     * [**IOnActivityResult**](#IOnActivityResult)
@@ -55,7 +55,7 @@
 
     ![](./gradle.png)
 
-### **Source code for Unity**
+### **Unity code**
 
 Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` folder.
 
@@ -77,10 +77,12 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
         using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
             using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
                 SDKManager.InitStartSDK (activity);
-                SDKManager.SetClientId (CLIENT_ID);
-                SDKManager.SetClientSecret (CLIENT_SECRET);
             }
         }
+
+        // Call after start SDK
+        SDKManager.SetClientId (CLIENT_ID);
+        SDKManager.SetClientSecret (CLIENT_SECRET);
 
         #endif
     }

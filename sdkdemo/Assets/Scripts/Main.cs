@@ -22,10 +22,12 @@ public class Main : MonoBehaviour, IOnActivityResult {
 		using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
 			using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
 				SDKManager.InitStartSDK (activity);
-				SDKManager.SetClientId ("23d4c59d0fb261b2d711c14784f69f6b");
-				SDKManager.SetClientSecret ("9c104e12f38bb9afe26c1b814cd2a2e1");
 			}
 		}
+
+		// Call after start SDK
+        SDKManager.SetClientId ("23d4c59d0fb261b2d711c14784f69f6b");
+		SDKManager.SetClientSecret ("9c104e12f38bb9afe26c1b814cd2a2e1");
 
 		#endif
   	}

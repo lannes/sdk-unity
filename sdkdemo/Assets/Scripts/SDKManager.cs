@@ -125,11 +125,11 @@ public class SDKManager: MonoBehaviour {
 		#endif
 	}
 
-	public static void SetClientSecret(string secretId) {
+	public static void SetClientSecret(string clientSecret) {
 		#if UNITY_ANDROID
 
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
-			VTCString.SetStatic("CLIENT_SECRET", secretId);
+			VTCString.SetStatic("CLIENT_SECRET", clientSecret);
 		}
 
 		#endif
