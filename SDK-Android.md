@@ -74,8 +74,8 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
         using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
             using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
                 SDKManager.InitStartSDK (activity);
-                SDKManager.SetClientId (<CLIENT_ID>);
-                SDKManager.SetClientSecret (<CLIENT_SECRET>);
+                SDKManager.SetClientId (CLIENT_ID);
+                SDKManager.SetClientSecret (CLIENT_SECRET);
             }
         }
 
@@ -112,7 +112,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
             Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
 
             // If game use VTC's payment please contact us to get more information.
-			// SDKManager.UpdateGameInfo(id, data);
+            // SDKManager.UpdateGameInfo(id, data);
         }
     }
 
@@ -156,9 +156,9 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     
     **A:** While `VTCSdk.aar` main focus on native Android then `unity.aar` is the bridge plugin to Unity, it support callback method instead `onActivityResult` when sign in or payment.
     
-    `com.software.intecom.vtc.unity.UnityActivity` in `unity.aar` will receive `onActivityResult` from `VTCSdk.aar` then send message to Unity over callback method. **Use `unity.aar` developer don't must extends or modify `UnityPlayerActivity` class**.
-
-    Remember add declare the line `<activity android:name="com.software.intecom.vtc.unity.UnityActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>` in the `AndroidManifest.xml` file.
+    The `UnityActivity` activity in `unity.aar` will receive `onActivityResult` from `VTCSdk.aar` then send message to Unity over `PluginCallback`. **Use `unity.aar` developer don't must extends or modify `UnityPlayerActivity` class**. 
+    
+    (Declare line `<activity android:name="com.software.intecom.vtc.unity.UnityActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>` in the `AndroidManifest.xml` file).
 
 4. **Q:** Why need choose Target API Level is Automatic?
 
