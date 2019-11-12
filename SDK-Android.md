@@ -9,11 +9,11 @@
     * [**Export Project**](#Export-Project)
 * [**Source code for Unity**](#Source-code-for-Unity)
     * [**SetEnvironment**](#SetEnvironment)
-    * [**StartSDK**](#StartSDK)
-    * [**Implement interface**](#Implement-interface)
+    * [**InitStartSDK**](#InitStartSDK)
+    * [**IOnActivityResult**](#IOnActivityResult)
     * [**SignIn**](#SignIn)
     * [**SignOut**](#SignOut)
-* [**Q&A**](#Q&A)
+* [**Q & A**](#Q-&-A)
 
 ### **Tools**
 
@@ -47,9 +47,9 @@
 
     [mainTemplate.gradle](./sdkdemo/Assets/Plugins/Android/mainTemplate.gradle)
 
-    Please without modify variables in the `**` symbols, else Unity will export the `build.gradle` file incorrect.
-
     Reference link: [android-gradle-overview](https://docs.unity3d.com/560/Documentation/Manual/android-gradle-overview.html)
+
+    _Please without modify variables in the `**` symbols, else Unity will export the `build.gradle` file incorrect._
 
 * #### **Export Project**
 
@@ -64,7 +64,10 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
     ```
 
-* #### **StartSDK**
+    * **Sandbox**: `SDKManager.ENVIRONMENT_SANDBOX`
+    * **Live**: `SDKManager.ENVIRONMENT_LIVE`
+
+* #### **InitStartSDK**
     ```cs
     void StartSDK() {
         #if UNITY_ANDROID
@@ -87,11 +90,11 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     * CLIENT_ID
     * CLIENT_SECRET
 
-* #### **Implement interface**
+* #### **IOnActivityResult**
 
     Implement `IOnActivityResult` interface to receive result from the `SDKManager.cs`.
 
-    ```csharp
+    ```cs
     public class Main : MonoBehaviour, IOnActivityResult {
 
         public void onMessage(string message, int requestCode) {
@@ -102,7 +105,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     ```
 
 * #### **SignIn**
-    ```csharp
+    ```cs
     #if UNITY_ANDROID
 
     public void onMessage(string message, int requestCode) {
@@ -111,7 +114,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
             Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
             Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
 
-            // If game use VTC's payment please contact us to get more information.
+            // If you use VTC's payment please contact us to get more information.
             // SDKManager.UpdateGameInfo(id, data);
         }
     }
@@ -132,7 +135,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     ```
 
 * #### **SignOut**
-    ```csharp
+    ```cs
     public void SignOut() {
         #if UNITY_ANDROID
         
@@ -142,7 +145,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
 
-### **Q&A**
+### **Q & A**
 
 1. **Q:** Why need export to Android project?
 

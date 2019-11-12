@@ -48,7 +48,7 @@ public interface IOnActivityResult {
 
 public class SDKManager: MonoBehaviour {
 	public static int ENVIRONMENT_SANDBOX = 0;
-	public static int ENVIRONMENT_REAL = 1;
+	public static int ENVIRONMENT_LIVE = 1;
 	public static int ALLOW_CHANGE_ACCOUNT = 0;
 	public static string VI = "vi";
 	public static string ENG = "eng";
@@ -58,12 +58,13 @@ public class SDKManager: MonoBehaviour {
 
 	public static int SIGNIN_CODE = 100;
 	public static int OPENSHOP_CODE = 200;
-	public static int SIGNOUT_CODE = 300;
 
 	public const string CORE_PACKAGE = "com.strategy.intecom.vtc.tracking";
 	public const string SDK_MANAGER = CORE_PACKAGE + ".SDKManager";
+
 	public const string MAIN_PACKAGE = "com.software.intecom.vtc.unity";
 	public const string UNITY_SDK_MANAGER = MAIN_PACKAGE + ".UnitySDKManager";
+
 	public static IOnActivityResult m_iOnActivityResult = null;
  
 	class AndroidPluginCallback: AndroidJavaProxy {
