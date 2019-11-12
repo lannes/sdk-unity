@@ -66,24 +66,6 @@ public class SDKManager: MonoBehaviour {
 	public const string UNITY_SDK_MANAGER = MAIN_PACKAGE + ".UnitySDKManager";
 	public static IOnActivityResult m_iOnActivityResult = null;
  
-	/*
-	class SignOutCallback: AndroidJavaProxy {
-		public SignOutCallback() : base(SDK_MANAGER + "$onSignOutCallBack") { }
-
-		public void onSignout() {
-			Debug.Log("onSignout");
-		}
-	}
-
-	class DidPurchaseSuccessfullyCallback: AndroidJavaProxy {
-		public DidPurchaseSuccessfullyCallback() : base(SDK_MANAGER + "$DidPurchaseSuccessfully") { }
-
-		public void onDidPurchaseSuccessfully() {
-			Debug.Log("onDidPurchaseSuccessfully");
-		}
-	}
-	*/
-
 	class AndroidPluginCallback: AndroidJavaProxy {
 		public AndroidPluginCallback(): base(MAIN_PACKAGE + ".PluginCallback") {}
 
@@ -177,12 +159,6 @@ public class SDKManager: MonoBehaviour {
 		#if UNITY_ANDROID
 		m_iOnActivityResult = iOnActivityResult;
 
-		/*
-		using (AndroidJavaClass sdkManager = new AndroidJavaClass(SDK_MANAGER)) {
-			sdkManager.CallStatic("setDidPurchaseSuccessfully", new DidPurchaseSuccessfullyCallback());
-		}
-		*/
-
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("openShop", activity);
 		}
@@ -202,12 +178,6 @@ public class SDKManager: MonoBehaviour {
 
 	public static void SignOut() {
 		#if UNITY_ANDROID
-
-		/*
-		using (AndroidJavaClass sdkManager = new AndroidJavaClass(SDK_MANAGER)) {
-			sdkManager.CallStatic("setOnSignOutCallBack", new SignOutCallback());
-		}
-		*/
 		
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("SignOut");

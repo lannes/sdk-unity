@@ -11,7 +11,7 @@ public class Main : MonoBehaviour, IOnActivityResult {
 		}
 	}
 
-  	void CallNativePlugin() {
+  	void StartSDK() {
 		#if UNITY_ANDROID
 
 		SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
@@ -49,7 +49,7 @@ public class Main : MonoBehaviour, IOnActivityResult {
 
 	// Use this for initialization
 	void Start () {
-		CallNativePlugin();
+		StartSDK();
 	}
 	
 	// Update is called once per frame

@@ -66,16 +66,26 @@ SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
 
 #### **Start SDK**
 ```cs
-#if UNITY_ANDROID
-using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-    using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
-        SDKManager.InitStartSDK (activity);
-        SDKManager.SetClientId (<CLIENT_ID>);
-        SDKManager.SetClientSecret (<CLIENT_SECRET>);
+void StartSDK() {
+    #if UNITY_ANDROID
+
+    SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
+
+    using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+        using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+            SDKManager.InitStartSDK (activity);
+            SDKManager.SetClientId (<CLIENT_ID>);
+            SDKManager.SetClientSecret (<CLIENT_SECRET>);
+        }
     }
+
+    #endif
 }
-#endif
 ```
+
+Please contact we to get two values below:
+* CLIENT_ID
+* CLIENT_SECRET
 
 #### **Implement interface**
 
