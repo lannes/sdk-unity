@@ -9,6 +9,8 @@
     * [**VtcSDK-Info.plist**](#VtcSDK-Info.plist)
     * [**Export Project**](#Export-Project)
 * [**Unity code**](#Unity-code)
+    * [**InitStartSDK**](#InitStartSDK)
+    * [**DelegateMessage**](#DelegateMessage)
     * [**SignIn**](#SignIn)
     * [**SignOut**](#SignOut)
 * [**Xcode**](#Xcode)
@@ -81,13 +83,32 @@ Open `sdkdemo` project in the Unity 5.6.x.
 
 Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` folder.
 
+* #### **InitStartSDK**
+    ```cs
+    #if UNITY_IOS
+		// You must call set environment in UnityAppController.mm
+
+    SDKManager.InitStartSDK();
+    #endif
+    ```
+ 
+* #### **DelegateMessage**
+    ```cs
+    #if UNITY_IOS
+	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
+ 	private static void onMessage(string message, int requestCode) {
+		if (requestCode == SDKManager.SIGNIN_CODE) {
+   			Debug.Log("Message received: " + message);
+		}
+ 	}
+ 	#endif
+    ```
+
 * #### **SignIn**
     ```cs
     public void SignIn() {
 		#if UNITY_IOS
-		
-		SDKManager.SignIn(this);
-
+		SDKManager.SignIn(onMessage);
 		#endif
     }
     ```

@@ -106,8 +106,11 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     Implement `IOnActivityResult` interface to receive result from the `SDKManager.cs`.
 
     ```cs
+    #if UNITY_ANDROID
     public class Main : MonoBehaviour, IOnActivityResult {
-
+    #else
+    public class Main : MonoBehaviour {
+    #endif
         public void onMessage(string message, int requestCode) {
 
         }
@@ -157,10 +160,8 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
 * #### **SignOut**
     ```cs
     public void SignOut() {
-        #if UNITY_ANDROID
-        
-        SDKManager.SignOut();		
-        
+        #if UNITY_ANDROID        
+        SDKManager.SignOut();
         #endif
     }
     ```
