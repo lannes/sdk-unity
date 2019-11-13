@@ -85,11 +85,13 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
 
 * #### **InitStartSDK**
     ```cs
-    #if UNITY_IOS
-		// You must call set environment in UnityAppController.mm
+    void StartSDK() {
+		#if UNITY_IOS
+        // You must call set environment in UnityAppController.mm
 
-    SDKManager.InitStartSDK();
-    #endif
+		SDKManager.InitStartSDK();
+		#endif
+    }
     ```
  
 * #### **DelegateMessage**
@@ -117,9 +119,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     ```cs
     public void SignOut() {
 		#if UNITY_IOS
-		
 		SDKManager.SignOut();		
-		
 		#endif
 	}
     ```
