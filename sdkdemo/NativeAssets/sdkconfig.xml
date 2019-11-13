@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+sdk_facebook_app_id =
+sdk_google_client_id =
+sdk_google_client_secret =
+sdk_gcm_id =
+sdk_appsflyer_dev_key = 4toAa4UsXTiSELM98xse83
+sdk_client_id = 23d4c59d0fb261b2d711c14784f69f6b
+sdk_client_secret_key = 9c104e12f38bb9afe26c1b814cd2a2e1
+sdk_notification = one
+sdk_direct_download = no
+sdk_utm = 
+</resources>

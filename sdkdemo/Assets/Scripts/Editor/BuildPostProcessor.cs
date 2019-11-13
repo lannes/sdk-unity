@@ -220,6 +220,3 @@ public class BuildPostProcessor {
 		AddFrameworkToEmbed(buildPath, "VtcSDK.framework");
 	}
 }
-
-
-
