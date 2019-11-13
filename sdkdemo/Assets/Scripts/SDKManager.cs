@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices; 
 using UnityEngine;
-using System;
 
 public class VTCUser {
 	private string _accessToken;
@@ -54,18 +55,42 @@ public class SDKManager: MonoBehaviour {
 	public static string ENG = "eng";
 	public static VTCUser vtcUser = new VTCUser();
 
-	#if UNITY_ANDROID
-
 	public static int SIGNIN_CODE = 100;
 	public static int OPENSHOP_CODE = 200;
+
+	#if UNITY_IOS
+	
+	public delegate void DelegateMessage(string message, int requestCode);
+
+	[DllImport("__Internal")]
+ 	private static extern void unitybridge_setDelegate(DelegateMessage callback);
+
+	[DllImport ("__Internal")]
+	private static extern void initStartSDK();
+
+	[DllImport ("__Internal")]
+	private static extern void signIn();
+	
+	[DllImport ("__Internal")]
+  	private static extern void updateGameInfo(string sId, string sData);
+
+	[DllImport ("__Internal")]
+	private static extern void openShop();
+
+	[DllImport ("__Internal")]
+	private static extern void signOut();
+
+	#endif
+
+	public static IOnActivityResult m_iOnActivityResult = null;
+
+	#if UNITY_ANDROID
 
 	public const string CORE_PACKAGE = "com.strategy.intecom.vtc.tracking";
 	public const string SDK_MANAGER = CORE_PACKAGE + ".SDKManager";
 
 	public const string MAIN_PACKAGE = "com.software.intecom.vtc.unity";
 	public const string UNITY_SDK_MANAGER = MAIN_PACKAGE + ".UnitySDKManager";
-
-	public static IOnActivityResult m_iOnActivityResult = null;
  
 	class AndroidPluginCallback: AndroidJavaProxy {
 		public AndroidPluginCallback(): base(MAIN_PACKAGE + ".PluginCallback") {}
@@ -95,64 +120,68 @@ public class SDKManager: MonoBehaviour {
 
 	#endif
 
+	#if UNITY_ANDROID
 	public static void SetEnvironment(int env) {
-		#if UNITY_ANDROID
-
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("setEnviroment", env);
 		}
-
-		#endif
 	}
+	#endif
 
+	#if UNITY_IOS
+	public static void InitStartSDK() {
+		initStartSDK();
+	}
+	#endif
+
+	#if UNITY_ANDROID
 	public static void InitStartSDK(AndroidJavaObject activity) {
-		#if UNITY_ANDROID
-
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("initStartSDK", activity);
 		}
-  		
-		#endif
 	}
-
-	public static void SetClientId(string clientId) {
-		#if UNITY_ANDROID
-		
+	#endif
+	
+	#if UNITY_ANDROID
+	public static void SetClientId(string clientId) {	
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
 			VTCString.SetStatic("CLIENT_ID", clientId);
 		}
-
-		#endif
 	}
 
-	public static void SetClientSecret(string clientSecret) {
-		#if UNITY_ANDROID
-
+	public static void SetClientSecret(string secretId) {
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
-			VTCString.SetStatic("CLIENT_SECRET", clientSecret);
+			VTCString.SetStatic("CLIENT_SECRET", secretId);
 		}
-
-		#endif
 	}
+	#endif
 
+	#if UNITY_IOS
+	public static void SignIn(DelegateMessage callback) {
+		unitybridge_setDelegate(callback);
+		signIn();
+	}
+	#endif
+
+	#if UNITY_ANDROID
 	public static void SignIn(AndroidJavaObject activity, IOnActivityResult iOnActivityResult) {
-		#if UNITY_ANDROID
 		m_iOnActivityResult = iOnActivityResult;
 
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
         	unitySdkManager.CallStatic("SignIn", activity, new AndroidPluginCallback());
 		}
-
-		#endif
 	}
+	#endif
 
 	public static void UpdateGameInfo(string id, string data) {
 		#if UNITY_ANDROID
-		
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("updateGameInfo", id, data);
 		}	
-		
+		#endif
+
+		#if UNITY_IOS
+		updateGameInfo(id, data);
 		#endif
 	}
 
@@ -163,27 +192,18 @@ public class SDKManager: MonoBehaviour {
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("openShop", activity);
 		}
-
 		#endif
 	}
-
-	public static void CloseShop() {
-		#if UNITY_ANDROID
-		
-		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
-			unitySdkManager.CallStatic("closeShop");
-		}
-
-		#endif
-	}
-
+	
 	public static void SignOut() {
 		#if UNITY_ANDROID
-		
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("SignOut");
-		}
-		
+		}		
+		#endif
+
+		#if UNITY_IOS
+		signOut();
 		#endif
 	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>APPSFLYER_DEV_KEY</key>
+	<string>4toAa4UsXTiSELM98xse83</string>
+	<key>APPSTORE_ID</key>
+	<string>1465214241</string>
+	<key>VTC_APP_NAME</key>
+	<string>FinalBlade</string>
+	<key>UTM_STRING</key>
+	<string></string>
+	<key>DIRECT_VERSION</key>
+	<false/>
+	<key>VTC_APP_ID</key>
+	<string>23d4c59d0fb261b2d711c14784f69f6b</string>
+	<key>VTC_APP_SECRET</key>
+	<string>9c104e12f38bb9afe26c1b814cd2a2e1</string>
+	<key>LANGUAGE</key>
+	<string>vie</string>
+	<key>VTC_APP_ID_EN</key>
+	<string>23d4c59d0fb261b2d711c14784f69f6b</string>
+</dict>
+</plist>

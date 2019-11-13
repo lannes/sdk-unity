@@ -1,0 +1,6 @@
+framework module VtcSDK {
+  umbrella header "VtcSDK.h"
+
+  export *
+  module * { export * }
+}
