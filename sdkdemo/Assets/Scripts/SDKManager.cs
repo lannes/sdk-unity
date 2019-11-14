@@ -4,43 +4,19 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices; 
 using UnityEngine;
 
+[System.Serializable]
 public class VTCUser {
-	private string _accessToken;
-	private string _billingAccessToken;
-	private string _accountName;
-	private string _accountId;
-	private int _vcoinBalance;
-	private string _email;
+	public string accountName;
+	public string accountId;
+	public string accessToken;
+	public string billingAccessToken;
+	public int vcoinBalance;
+	public string email;
 
-	public string accessToken {
-		get { return _accessToken; }
-		set { _accessToken = value; }
-	}
-
-    public string billingAccessToken {
-		get { return _billingAccessToken; }
-		set { _billingAccessToken = value; }
-	}
-
-	public string accountName {
-		get { return _accountName; }
-		set { _accountName = value; }
-	}
-	
-	public string accountId {
-		get { return _accountId; }
-		set { _accountId = value; }
-	}
-
-	public int vcoinBalance {
-		get { return _vcoinBalance; }
-		set { _vcoinBalance = value; }
-	}
-
-	public string email {
-		get { return _email; }
-		set { _email = value; }
-	}
+	public static VTCUser CreateFromJSON(string jsonString)
+    {
+        return JsonUtility.FromJson<VTCUser>(jsonString);
+    }
 }
 
 public interface IOnActivityResult {
@@ -53,7 +29,7 @@ public class SDKManager: MonoBehaviour {
 	public static int ALLOW_CHANGE_ACCOUNT = 0;
 	public static string VI = "vi";
 	public static string ENG = "eng";
-	public static VTCUser vtcUser = new VTCUser();
+	public static VTCUser vtcUser = null;
 
 	public static int SIGNIN_CODE = 100;
 	public static int OPENSHOP_CODE = 200;
@@ -99,6 +75,7 @@ public class SDKManager: MonoBehaviour {
 			if (requestCode == SIGNIN_CODE) {
 				using (AndroidJavaObject sdkManager = new AndroidJavaObject(SDK_MANAGER)) {
 					using (AndroidJavaObject obj = sdkManager.GetStatic<AndroidJavaObject>("userModel")) {
+						SDKManager.vtcUser = new VTCUser();
 						SDKManager.vtcUser.accessToken = obj.Call<string>("getAccessToken");
 						SDKManager.vtcUser.billingAccessToken = obj.Call<string>("getBillingAccessToken");
 						SDKManager.vtcUser.accountName = obj.Call<string>("getAccountName");

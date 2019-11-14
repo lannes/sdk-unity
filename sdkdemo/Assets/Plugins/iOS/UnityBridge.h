@@ -2,7 +2,7 @@
 extern "C" {
 #endif
 
-typedef void(*DelegateCallbackFunction)(const char* message, int requestCode);
+typedef void(*DelegateCallbackFunction)(const char *message, int requestCode);
 void unitybridge_setDelegate(DelegateCallbackFunction callback);
 
 void initStartSDK();

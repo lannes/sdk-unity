@@ -36,7 +36,26 @@ Open `sdkdemo` project in the Unity 5.6.x.
 * #### **Library**
     * Copy `UnityBridge.h`, `UnityBridge.mm` into the `Assets/Plugins/iOS` folder.
     * Copy [BuildPostProcessor.cs](./sdkdemo/Assets/Scripts/Editor/BuildPostProcessor.cs) into the `Scripts/Editor` folder.
-
+    * Copy `NativeAssets` directory to the Unity project.
+    * Folder struct:
+    ```
+    + Assest
+    |   + Plugins
+    |   |   + Android
+    |   |   + iOS
+    |   |   |   + UnityBridge.h
+    |   |   |   + UnityBridge.mm
+    |   + Scripts
+    |   |   + Editor
+    |   |   |   - BuildPostProcessor.cs
+    |   |   - SDKManager.cs
+    + Library
+    + NativeAssets
+    |   + VtcSDK.framework
+    |   + VtcSDKResource.bundle
+    |   + VtcSDK-Info.plist
+    + ProjectSettings
+    ```
 * #### **VtcSDK-Info.plist**
 
     The `VtcSDK-Info.plist` file in `NativeAssets` directory.
@@ -95,18 +114,33 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
  
 * #### **DelegateMessage**
     ```cs
-    #if UNITY_IOS
-	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
- 	private static void onMessage(string message, int requestCode) {
-		if (requestCode == SDKManager.SIGNIN_CODE) {
-   			Debug.Log("Message received: " + message);
-		}
- 	}
- 	#endif
+    public class Main : MonoBehaviour {
+        #if UNITY_IOS
+        [MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
+        public static void onMessage(string message, int requestCode) {
+        }
+        #endif
+    }
     ```
 
 * #### **SignIn**
     ```cs
+    #if UNITY_IOS
+	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
+ 	public static void onMessage(string message, int requestCode) {
+		if (requestCode == SDKManager.SIGNIN_CODE) {
+			try {
+				SDKManager.vtcUser = VTCUser.CreateFromJSON(message);
+				Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
+				Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
+				Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
+			} catch (Exception e) {
+				
+			}
+		}
+ 	}
+    #endif
+
     public void SignIn() {
         #if UNITY_IOS
         SDKManager.SignIn(onMessage);

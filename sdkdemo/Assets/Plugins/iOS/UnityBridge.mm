@@ -14,6 +14,15 @@ void unitybridge_setDelegate(DelegateCallbackFunction callback) {
     delegate = callback;
 }
 
+char* MakeStringCopy(const char* string) {
+   if (string == NULL)
+       return NULL;
+
+   char* res = (char*)malloc(strlen(string) + 1);
+   strcpy(res, string);
+   return res;
+}
+
 void initStartSDK() {
     if (!__delegate) {
       __delegate = [[UnityBridge alloc] init];
@@ -48,10 +57,12 @@ void signOut() {
 */
 - (void)sdkManagerDidSignInWithUser:(VIDUser *)user {
     if (delegate != NULL) {
-        delegate("sdkManagerDidSignInWithUser", SIGNIN_CODE);
+        NSString *json = [NSString stringWithFormat:
+                          @"{\"accountName\": \"%@\", \"accountId\": \"%@\", \"accessToken\":\"%@\", \"billingAccessToken\": \"\", \"vcoinBalance\": 0, \"email\": \"%@\"}",
+                        user.userName, user.userId, user.accessToken, user.email ? user.email : @""];
+
+        delegate([json UTF8String], SIGNIN_CODE);
     }
-    NSLog(@"username = %@", user.userName);
-    NSLog(@"user_id = %@", user.userId);
 }
 
 /*
