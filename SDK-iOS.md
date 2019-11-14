@@ -129,15 +129,12 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     #if UNITY_IOS
 	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
  	public static void onMessage(string message, int requestCode) {
-		if (requestCode == SDKManager.SIGNIN_CODE) {
-			try {
-				SDKManager.vtcUser = VTCUser.CreateFromJSON(message);
-				Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
-				Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
-				Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
-			} catch (Exception e) {
-				
-			}
+		if (requestCode == SDKManager.SIGNIN_CODE) {            
+            SDKManager.vtcUser = VTCUser.CreateFromJSON(message);
+            
+            Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
+            Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
+            Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
 		}
  	}
     #endif
@@ -196,7 +193,7 @@ Edit `UnityAppController.mm` as below:
 
 1. **Q:** What is `BuildPostProcessor.cs` file? 
 
-    **A:** `BuildPostProcessor` is a build script, it will support you add libraries and frameworks necessary automatic. It also add some setting for `Xcode` project.
+    **A:** `BuildPostProcessor.cs` is a build script, it will support you add libraries and frameworks necessary automatic. It also add some setting for `Xcode` project.
 
 2. **Q:** How to use `BuildPostProcessor.cs` file?
 

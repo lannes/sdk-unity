@@ -155,9 +155,11 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     #else
     public class Main : MonoBehaviour {
     #endif
+    	#if UNITY_ANDROID
         public void onMessage(string message, int requestCode) {
 
         }
+        #endif
 
         // Use this for initialization
 	    void Start () {
@@ -238,4 +240,4 @@ You need only open and build the Android project.
 
 5. **Q:** What is `BuildPostProcessor.cs` file? 
 
-    **A:** `BuildPostProcessor` is a build script, it will support copy `sdkconfig.xml` file to `res/raw` directory of Android project.
+    **A:** `BuildPostProcessor.cs` is a build script, it will copy `sdkconfig.xml` file to `res/raw` directory of Android project.
