@@ -43,6 +43,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
 
     ![](./plugin-android.png)
     
+    * Copy [BuildPostProcessor.cs](./sdkdemo/Assets/Scripts/Editor/BuildPostProcessor.cs) into the `Scripts/Editor` folder.
     * Copy `NativeAssets` directory to the Unity project.
     * Folder struct:
     ```
@@ -56,6 +57,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     |   |   + iOS
     |   + Scripts
     |   |   + Editor
+    |   |   |   - BuildPostProcessor.cs
     |   |   - SDKManager.cs
     + Library
     + NativeAssets
@@ -231,3 +233,7 @@ You need only open and build the Android project.
 4. **Q:** Why need choose Target API Level is Automatic?
 
     **A:** Because the `Unity 5.6.x` only support max level is 25 (`Android 7.1 (API Level 25)`) to select, in while Google Play require must target at least [Android 9 (API level 28)](https://developer.android.com/distribute/best-practices/develop/target-sdk)
+
+5. **Q:** What is `BuildPostProcessor.cs` file? 
+
+    **A:** `BuildPostProcessor` is a build script, it will support copy `sdkconfig.xml` file to `res/raw` directory of Android project.
