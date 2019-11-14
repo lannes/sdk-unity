@@ -72,6 +72,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
 
     The `sdkconfig.xml` file in `NativeAssets` directory.
 
+    ```xml
     <?xml version="1.0" encoding="utf-8"?>
     <resources>
     sdk_facebook_app_id =
@@ -85,6 +86,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     sdk_direct_download = no
     sdk_utm = 
     </resources>
+    ```
 
     Please contact us to get the values below:
     * sdk_client_id
