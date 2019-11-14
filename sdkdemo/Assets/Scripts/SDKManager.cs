@@ -157,15 +157,15 @@ public class SDKManager: MonoBehaviour {
 		#endif
 	}
 
+	#if UNITY_ANDROID
 	public static void OpenShop(AndroidJavaObject activity, IOnActivityResult iOnActivityResult) {
-		#if UNITY_ANDROID
 		m_iOnActivityResult = iOnActivityResult;
 
 		using (AndroidJavaClass unitySdkManager = new AndroidJavaClass(UNITY_SDK_MANAGER)) {
 			unitySdkManager.CallStatic("openShop", activity);
 		}
-		#endif
 	}
+	#endif
 	
 	public static void SignOut() {
 		#if UNITY_ANDROID
