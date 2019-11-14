@@ -193,15 +193,38 @@ Edit `UnityAppController.mm` as below:
 
 ### **Q & A**
 
-1. **Q**: What is `BuildPostProcessor.cs` file? 
+1. **Q:** What is `BuildPostProcessor.cs` file? 
 
     **A:** `BuildPostProcessor` is a build script, it will support you add libraries and frameworks necessary automatic. It also add some setting for `Xcode` project.
 
-2. **Q:** Is `VTCSdk` run on simulator?
+2. **Q:** How to use `BuildPostProcessor.cs` file?
+
+    **A:** `BuildPostProcessor` support methods as below:
+    * `AddFramework(string framework)`
+    
+        e.g. AddFramework("CoreData.framework");
+    * `AddUsrLib(string framework)`
+    
+        e.g. AddUsrLib("libz.dylib");
+    * `AddExternalFramework(string path, string framework)`
+    
+        e.g. AddExternalFramework(Application.dataPath + "/../NativeAssets", "VtcSDK.framework");
+    * `AddFile(string path, string file)`
+    
+        e.g. AddFile(Application.dataPath + "/../NativeAssets", "VtcSDK-Info.plist");
+    * `UpdatePlist()`
+    
+        e.g. rootDict.CreateArray("UIBackgroundModes").AddString("remote-notification");
+    
+    * `AddFrameworkToEmbed(string path, string frameworkName)`
+        
+        e.g. AddFrameworkToEmbed(buildPath, "VtcSDK.framework");
+
+3. **Q:** Is `VTCSdk` run on simulator?
 
     **A:** Please contact us to get `VTCSdk` version for simulator.
 
-3. **Q** How to solve if occur error `MapFileParser.sh: Permission denied` while build with `Xcode`?
+4. **Q** How to solve if occur error `MapFileParser.sh: Permission denied` while build with `Xcode`?
 
     **A:** Run command below:
     ```sh
