@@ -15,14 +15,14 @@ public class BuildPostProcessor {
 	private static void OpenProject() {
 		_projectPath = _path + "/Unity-iPhone.xcodeproj/project.pbxproj";
 
-		_project = new PBXProject ();
-		_project.ReadFromFile (_projectPath);
+		_project = new PBXProject();
+		_project.ReadFromFile(_projectPath);
 
 		_target = _project.TargetGuidByName("Unity-iPhone");
   	}
 
 	private static void CloseProject() {
-    	File.WriteAllText(_projectPath, _project.WriteToString ());
+    	File.WriteAllText(_projectPath, _project.WriteToString());
   	}
 
 	internal static void CopyAndReplaceDirectory(string srcPath, string dstPath)
@@ -181,7 +181,16 @@ public class BuildPostProcessor {
 	[PostProcessBuild]
 	public static void OnPostprocessBuild(BuildTarget buildTarget, string buildPath) {	
 		if (buildTarget == BuildTarget.Android) {
-			
+			string projPath = Path.Combine(buildPath, Application.productName);
+			string resRawPath = Path.Combine(projPath, "src/main/res/raw");
+
+			if (!Directory.Exists(resRawPath))
+				Directory.CreateDirectory(resRawPath);
+
+			string configFile = "sdkconfig.xml";
+			string srcPath = Application.dataPath + "/../NativeAssets/" + configFile;
+
+			File.Copy(srcPath, Path.Combine(resRawPath, Path.GetFileName(srcPath)));
 			return;
 		}
 
@@ -220,6 +229,3 @@ public class BuildPostProcessor {
 		AddFrameworkToEmbed(buildPath, "VtcSDK.framework");
 	}
 }
-
-
-

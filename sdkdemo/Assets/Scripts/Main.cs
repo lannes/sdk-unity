@@ -13,17 +13,12 @@ public class Main : MonoBehaviour {
 	#if UNITY_IOS
 	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
  	public static void onMessage(string message, int requestCode) {
-		Debug.Log("Message received: " + message);
-
 		if (requestCode == SDKManager.SIGNIN_CODE) {
-			try {
-				SDKManager.vtcUser = VTCUser.CreateFromJSON(message);
-				Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
-				Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
-				Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
-			} catch (Exception e) {
-				
-			}
+			SDKManager.vtcUser = VTCUser.CreateFromJSON(message);
+
+			Debug.Log("ACCOUNT NAME: " + SDKManager.vtcUser.accountName);
+			Debug.Log("ACCOUNT ID: " + SDKManager.vtcUser.accountId);
+			Debug.Log("VCOIN BALANCE: " + SDKManager.vtcUser.vcoinBalance);
 		}
  	}
  	#endif
@@ -55,9 +50,6 @@ public class Main : MonoBehaviour {
 				SDKManager.InitStartSDK(activity);
 			}
 		}
-
-		SDKManager.SetClientId ("23d4c59d0fb261b2d711c14784f69f6b");
-		SDKManager.SetClientSecret ("9c104e12f38bb9afe26c1b814cd2a2e1");
 		#endif
   	}
 

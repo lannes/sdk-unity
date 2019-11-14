@@ -114,18 +114,6 @@ public class SDKManager: MonoBehaviour {
 			unitySdkManager.CallStatic("initStartSDK", activity);
 		}
 	}
-
-	public static void SetClientId(string clientId) {	
-		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
-			VTCString.SetStatic("CLIENT_ID", clientId);
-		}
-	}
-
-	public static void SetClientSecret(string secretId) {
-		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
-			VTCString.SetStatic("CLIENT_SECRET", secretId);
-		}
-	}
 	#endif
 
 	#if UNITY_IOS
