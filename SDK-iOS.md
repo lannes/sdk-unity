@@ -54,6 +54,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     |   + VtcSDK.framework
     |   + VtcSDKResource.bundle
     |   + VtcSDK-Info.plist
+    |   + sdkconfig.xml
     + ProjectSettings
     ```
 * #### **VtcSDK-Info.plist**

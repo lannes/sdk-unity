@@ -42,7 +42,8 @@ Open `sdkdemo` project in the Unity 5.6.x.
     * Copy 4 files: `AndroidManifest.xml`, `mainTemplate.gradle`, `unity.aar`, `VTCSdk.aar` into the `Assets/Plugins/Android` folder as the below image:
 
     ![](./plugin-android.png)
-
+    
+    * Copy `NativeAssets` directory to the Unity project.
     * Folder struct:
     ```
     + Assest
@@ -58,10 +59,17 @@ Open `sdkdemo` project in the Unity 5.6.x.
     |   |   - SDKManager.cs
     + Library
     + NativeAssets
+    |   + VtcSDK.framework
+    |   + VtcSDKResource.bundle
+    |   + VtcSDK-Info.plist
+    |   + sdkconfig.xml
     + ProjectSettings
     ```
 
 * #### **sdkconfig.xml**
+
+    The `sdkconfig.xml` file in `NativeAssets` directory.
+
     <?xml version="1.0" encoding="utf-8"?>
     <resources>
     sdk_facebook_app_id =
@@ -69,8 +77,8 @@ Open `sdkdemo` project in the Unity 5.6.x.
     sdk_google_client_secret =
     sdk_gcm_id =
     sdk_appsflyer_dev_key = 4toAa4UsXTiSELM98xse83
-    sdk_client_id = 23d4c59d0fb261b2d711c14784f69f6b
-    sdk_client_secret_key = 9c104e12f38bb9afe26c1b814cd2a2e1
+    sdk_client_id = 
+    sdk_client_secret_key = 
     sdk_notification = one
     sdk_direct_download = no
     sdk_utm = 
