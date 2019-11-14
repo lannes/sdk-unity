@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using AOT;
 
 #if UNITY_ANDROID
-public class Main : MonoBehaviour, IOnActivityResult {
+public class Main : MonoBehaviour, SDKManager.IOnActivityResult {
 #else
 public class Main : MonoBehaviour {
 #endif

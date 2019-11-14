@@ -107,7 +107,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
 
     ```cs
     #if UNITY_ANDROID
-    public class Main : MonoBehaviour, IOnActivityResult {
+    public class Main : MonoBehaviour, SDKManager.IOnActivityResult {
     #else
     public class Main : MonoBehaviour {
     #endif

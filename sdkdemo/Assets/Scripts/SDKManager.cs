@@ -19,10 +19,6 @@ public class VTCUser {
     }
 }
 
-public interface IOnActivityResult {
-	void onMessage(string message, int requestCode);
-}
-
 public class SDKManager: MonoBehaviour {
 	public static int ENVIRONMENT_SANDBOX = 0;
 	public static int ENVIRONMENT_LIVE = 1;
@@ -35,7 +31,6 @@ public class SDKManager: MonoBehaviour {
 	public static int OPENSHOP_CODE = 200;
 
 	#if UNITY_IOS
-	
 	public delegate void DelegateMessage(string message, int requestCode);
 
 	[DllImport("__Internal")]
@@ -55,12 +50,14 @@ public class SDKManager: MonoBehaviour {
 
 	[DllImport ("__Internal")]
 	private static extern void signOut();
-
 	#endif
 
-	public static IOnActivityResult m_iOnActivityResult = null;
-
 	#if UNITY_ANDROID
+	public interface IOnActivityResult {
+		void onMessage(string message, int requestCode);
+	}
+
+	public static IOnActivityResult m_iOnActivityResult = null;
 
 	public const string CORE_PACKAGE = "com.strategy.intecom.vtc.tracking";
 	public const string SDK_MANAGER = CORE_PACKAGE + ".SDKManager";
@@ -117,9 +114,7 @@ public class SDKManager: MonoBehaviour {
 			unitySdkManager.CallStatic("initStartSDK", activity);
 		}
 	}
-	#endif
-	
-	#if UNITY_ANDROID
+
 	public static void SetClientId(string clientId) {	
 		using (AndroidJavaClass VTCString = new AndroidJavaClass("com.strategy.intecom.vtc.common.VTCString")) {
 			VTCString.SetStatic("CLIENT_ID", clientId);
