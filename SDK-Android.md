@@ -6,7 +6,7 @@
 * [**Android Plugin**](#Android-Plugin)
     * [**Player Settings**](#Player-Settings)
     * [**Library**](#Library)
-    * [**sdkconfig.xml**](#sdkconfig.xml)
+    * [**VTCSdk configuration**](#VTCSdk-configuration)
     * [**Android Manifest**](#Android-Manifest)
     * [**Gradle Build**](#Gradle-Build)
     * [**Export Project**](#Export-Project)
@@ -68,7 +68,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     + ProjectSettings
     ```
 
-* #### **sdkconfig.xml**
+* #### **VTCSdk configuration**
 
     The `sdkconfig.xml` file in `NativeAssets` directory.
 

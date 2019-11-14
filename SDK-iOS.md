@@ -6,7 +6,7 @@
 * [**iOS Plugin**](#iOS-Plugin)
     * [**Player Settings**](#Player-Settings)
     * [**Library**](#Library)
-    * [**VtcSDK-Info.plist**](#VtcSDK-Info.plist)
+    * [**VTCSdk configuration**](#VTCSdk-configuration)
     * [**Export Project**](#Export-Project)
 * [**Unity code**](#Unity-code)
     * [**InitStartSDK**](#InitStartSDK)
@@ -57,7 +57,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     |   + sdkconfig.xml
     + ProjectSettings
     ```
-* #### **VtcSDK-Info.plist**
+* #### **VTCSdk configuration**
 
     The `VtcSDK-Info.plist` file in `NativeAssets` directory.
 
