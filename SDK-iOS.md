@@ -37,14 +37,14 @@ Open `sdkdemo` project in the Unity 5.6.x.
     * Copy `UnityBridge.h`, `UnityBridge.mm` into the `Assets/Plugins/iOS` folder.
     * Copy [BuildPostProcessor.cs](./sdkdemo/Assets/Scripts/Editor/BuildPostProcessor.cs) into the `Scripts/Editor` folder.
     * Copy `NativeAssets` directory to the Unity project.
-    * Folder struct:
+    * Folder structure:
     ```
     + Assest
     |   + Plugins
     |   |   + Android
     |   |   + iOS
-    |   |   |   + UnityBridge.h
-    |   |   |   + UnityBridge.mm
+    |   |   |   - UnityBridge.h
+    |   |   |   - UnityBridge.mm
     |   + Scripts
     |   |   + Editor
     |   |   |   - BuildPostProcessor.cs
@@ -53,8 +53,8 @@ Open `sdkdemo` project in the Unity 5.6.x.
     + NativeAssets
     |   + VtcSDK.framework
     |   + VtcSDKResource.bundle
-    |   + VtcSDK-Info.plist
-    |   + sdkconfig.xml
+    |   - VtcSDK-Info.plist
+    |   - sdkconfig.xml
     + ProjectSettings
     ```
 * #### **VTCSdk configuration**
@@ -198,34 +198,42 @@ Edit `UnityAppController.mm` as below:
 2. **Q:** How to use `BuildPostProcessor.cs` file?
 
     **A:** `BuildPostProcessor` support methods as below:
-    * `AddFramework(string framework)`
+    * `void AddFramework(string framework)`
     
         e.g. AddFramework("CoreData.framework");
-    * `AddUsrLib(string framework)`
+    * `void AddUsrLib(string framework)`
     
         e.g. AddUsrLib("libz.dylib");
-    * `AddExternalFramework(string path, string framework)`
+    * `void AddExternalFramework(string path, string framework)`
     
         e.g. AddExternalFramework(Application.dataPath + "/../NativeAssets", "VtcSDK.framework");
-    * `AddFile(string path, string file)`
+    * `void AddFile(string path, string file)`
     
         e.g. AddFile(Application.dataPath + "/../NativeAssets", "VtcSDK-Info.plist");
-    * `UpdatePlist()`
+    * `void UpdatePlist()`
     
         e.g. rootDict.CreateArray("UIBackgroundModes").AddString("remote-notification");
     
-    * `AddFrameworkToEmbed(string path, string frameworkName)`
+    * `void AddFrameworkToEmbed(string path, string frameworkName)`
         
         e.g. AddFrameworkToEmbed(buildPath, "VtcSDK.framework");
 
-3. **Q:** Is `VTCSdk` run on simulator?
+3. **Q:** How to disable dark mode?
+
+    **A:** This section applies to **Xcode 11** usage ([Reference](https://developer.apple.com/documentation/appkit/supporting_dark_mode_in_your_interface/choosing_a_specific_interface_style_for_your_ios_app)).
+    
+    Add code in `UpdatePlist()` method as below:
+    ```cs
+	rootDict.SetString("UIUserInterfaceStyle", "Light");
+	```
+
+4. **Q:** Is `VTCSdk` run on simulator?
 
     **A:** Please contact us to get `VTCSdk` version for simulator.
 
-4. **Q** How to solve if occur error `MapFileParser.sh: Permission denied` while build with `Xcode`?
+5. **Q** How to solve if occur error `MapFileParser.sh: Permission denied` while build with `Xcode`?
 
     **A:** Run command below:
     ```sh
     chmod +x /path/to/MapFileParser
     ```
-

@@ -45,7 +45,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     
     * Copy [BuildPostProcessor.cs](./sdkdemo/Assets/Scripts/Editor/BuildPostProcessor.cs) into the `Scripts/Editor` folder.
     * Copy `NativeAssets` directory to the Unity project.
-    * Folder struct:
+    * Folder structure:
     ```
     + Assest
     |   + Plugins
@@ -63,8 +63,8 @@ Open `sdkdemo` project in the Unity 5.6.x.
     + NativeAssets
     |   + VtcSDK.framework
     |   + VtcSDKResource.bundle
-    |   + VtcSDK-Info.plist
-    |   + sdkconfig.xml
+    |   - VtcSDK-Info.plist
+    |   - sdkconfig.xml
     + ProjectSettings
     ```
 
@@ -120,7 +120,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
 
 * #### **SetEnvironment**
     ```cs
-    SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
+    SDKManager.SetEnvironment(SDKManager.ENVIRONMENT_SANDBOX);
     ```
 
     Environment
@@ -133,11 +133,11 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
         #if UNITY_ANDROID
 
         // Call before start SDK
-        SDKManager.SetEnvironment (SDKManager.ENVIRONMENT_SANDBOX);
+        SDKManager.SetEnvironment(SDKManager.ENVIRONMENT_SANDBOX);
 
         using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
             using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
-                SDKManager.InitStartSDK (activity);
+                SDKManager.InitStartSDK(activity);
             }
         }
 
@@ -155,7 +155,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     #else
     public class Main : MonoBehaviour {
     #endif
-    	#if UNITY_ANDROID
+        #if UNITY_ANDROID
         public void onMessage(string message, int requestCode) {
 
         }
