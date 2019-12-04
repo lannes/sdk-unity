@@ -1,39 +1,39 @@
 # **SDK for Unity 5.6.x**
 
 ## **Table of Content**
-* [**Tools**](#Tools)
-* [**Demo**](#Demo)
-* [**iOS Plugin**](#iOS-Plugin)
-    * [**Player Settings**](#Player-Settings)
-    * [**Library**](#Library)
-    * [**VTCSdk configuration**](#VTCSdk-configuration)
-    * [**Export Project**](#Export-Project)
-* [**Unity code**](#Unity-code)
-    * [**InitStartSDK**](#InitStartSDK)
-    * [**DelegateMessage**](#DelegateMessage)
-    * [**SignIn**](#SignIn)
-    * [**SignOut**](#SignOut)
-* [**Xcode**](#Xcode)
-    * [**didFinishLaunchingWithOptions**](#didFinishLaunchingWithOptions)
-    * [**openURL**](#openURL)
-* [**Q & A**](#Q-&-A)
+* [1. Tools](#Tools)
+* [2. Demo](#Demo)
+* [3. iOS Plugin](#iOS-Plugin)
+    * [3.1. Player Settings](#Player-Settings)
+    * [3.2. Library](#Library)
+    * [3.3. VTCSdk configuration](#VTCSdk-configuration)
+    * [3.4. Export Project](#Export-Project)
+* [4. Unity code](#Unity-code)
+    * [4.1. InitStartSDK](#InitStartSDK)
+    * [4.2. DelegateMessage](#DelegateMessage)
+    * [4.3. SignIn](#SignIn)
+    * [4.4. SignOut](#SignOut)
+* [5. Xcode](#Xcode)
+    * [5.1. didFinishLaunchingWithOptions](#didFinishLaunchingWithOptions)
+    * [5.2. openURL](#openURL)
+* [6. Q & A](#Q-&-A)
 
-### **Tools**
+### <a name="Tools">1. Tools</a>
 
 * [Unity **5.6.5p1**](https://unity3d.com/unity/qa/patch-releases/5.6.5p1)
 * [Xcode **11.2**](https://apps.apple.com/app/xcode/id497799835)
 
-### **Demo**
+### <a name="Demo">2. Demo</a>
 Checkout Git: [https://github.com/lannes/sdk-unity.git](https://github.com/lannes/sdk-unity.git)
 
 Open `sdkdemo` project in the Unity 5.6.x.
 
-### **iOS Plugin**
+### <a name="iOS-Plugin">3. iOS Plugin</a>
 
-* #### **Player Settings**
+* #### <a name="Player-Settings">3.1. Player Settings</a>
     * Target minimum iOS version: 9.0
 
-* #### **Library**
+* #### <a name="Library">3.2. Library</a>
     * Copy `UnityBridge.h`, `UnityBridge.mm` into the `Assets/Plugins/iOS` folder.
     * Copy [BuildPostProcessor.cs](./sdkdemo/Assets/Scripts/Editor/BuildPostProcessor.cs) into the `Scripts/Editor` folder.
     * Copy `NativeAssets` directory to the Unity project.
@@ -57,7 +57,7 @@ Open `sdkdemo` project in the Unity 5.6.x.
     |   - sdkconfig.xml
     + ProjectSettings
     ```
-* #### **VTCSdk configuration**
+* #### <a name="VTCSdk-configuration">3.3. VTCSdk configuration</a>
 
     The `VtcSDK-Info.plist` file in `NativeAssets` directory.
 
@@ -95,15 +95,15 @@ Open `sdkdemo` project in the Unity 5.6.x.
 
     Set field values before use Unity to build Xcode project.
 
-* #### **Export Project**
+* #### <a name="Export-Project">Export Project</a>
 
     ![](./iOS.png)
 
-### **Unity code**
+### <a name="Unity-code">4. Unity code</a>
 
 Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` folder.
 
-* #### **InitStartSDK**
+* #### <a name="InitStartSDK">4.1. InitStartSDK</a>
     ```cs
     void StartSDK() {
         #if UNITY_IOS
@@ -113,7 +113,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
  
-* #### **DelegateMessage**
+* #### <a name="DelegateMessage">4.2. DelegateMessage</a>
     ```cs
     public class Main : MonoBehaviour {
         #if UNITY_IOS
@@ -124,7 +124,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
 
-* #### **SignIn**
+* #### <a name="SignIn">4.3. SignIn</a>
     ```cs
     #if UNITY_IOS
 	[MonoPInvokeCallback(typeof(SDKManager.DelegateMessage))] 
@@ -146,7 +146,7 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
 
-* #### **SignOut**
+* #### <a name="SignOut">4.4. SignOut</a>
     ```cs
     public void SignOut() {
         #if UNITY_IOS
@@ -155,11 +155,11 @@ Copy [SDKManager.cs](./sdkdemo/Assets/Scripts/SDKManager.cs) into the `Scripts` 
     }
     ```
 
-### **Xcode**
+### <a name="Xcode">5. Xcode<a>
 
 Edit `UnityAppController.mm` as below:
 
-* #### **didFinishLaunchingWithOptions**
+* #### <a name="didFinishLaunchingWithOptions">5.1. didFinishLaunchingWithOptions</a>
 
     ```objc
     #import <VtcSDK/VtcSDK.h>
@@ -180,7 +180,7 @@ Edit `UnityAppController.mm` as below:
     * **Sandbox**: `[SDKManager defaultManager].isSandbox = YES`
     * **Live**: `[SDKManager defaultManager].isSandbox = NO`
     
-* #### **openURL**
+* #### <a name="openURL">5.2. openURL</a>
 
     ```objc
     - (BOOL)application:(UIApplication*)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation
@@ -189,15 +189,15 @@ Edit `UnityAppController.mm` as below:
     }
     ```
 
-### **Q & A**
+### <a name="Q-&-A">6. Q & A</a>
 
 1. **Q:** What is `BuildPostProcessor.cs` file? 
 
-    **A:** `BuildPostProcessor.cs` is a build script, it will support you add libraries and frameworks necessary automatic. It also add some setting for `Xcode` project.
+    `BuildPostProcessor.cs` is a build script, it will support you add libraries and frameworks necessary automatic. It also add some setting for `Xcode` project.
 
 2. **Q:** How to use `BuildPostProcessor.cs` file?
 
-    **A:** `BuildPostProcessor` support methods as below:
+    `BuildPostProcessor` support methods as below:
     * `void AddFramework(string framework)`
     
         e.g. AddFramework("CoreData.framework");
@@ -220,7 +220,7 @@ Edit `UnityAppController.mm` as below:
 
 3. **Q:** How to disable dark mode?
 
-    **A:** This section applies to **Xcode 11** usage ([Reference](https://developer.apple.com/documentation/appkit/supporting_dark_mode_in_your_interface/choosing_a_specific_interface_style_for_your_ios_app)).
+    This section applies to **Xcode 11** usage ([Reference](https://developer.apple.com/documentation/appkit/supporting_dark_mode_in_your_interface/choosing_a_specific_interface_style_for_your_ios_app)).
     
     Add code in `UpdatePlist()` method as below:
     ```cs
@@ -229,11 +229,11 @@ Edit `UnityAppController.mm` as below:
 
 4. **Q:** Is `VTCSdk` run on simulator?
 
-    **A:** Please contact us to get `VTCSdk` version for simulator.
+    Please contact us to get `VTCSdk` version for simulator.
 
 5. **Q** How to solve if occur error `MapFileParser.sh: Permission denied` while build with `Xcode`?
 
-    **A:** Run command below:
+    Run command below:
     ```sh
     chmod +x /path/to/MapFileParser
     ```

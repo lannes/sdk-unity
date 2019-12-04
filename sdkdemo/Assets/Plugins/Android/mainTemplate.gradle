@@ -25,22 +25,22 @@ apply plugin: 'com.android.application'
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	//   implementation(':VTCSdkLibNoTelco')
+	//implementation(':VTCSdkLibNoTelco')
 
     implementation('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
         // exclusion is not necessary, but generally a good idea.
         exclude group: 'com.google.android', module: 'support-v4'
     }
-//
-//    compile 'com.google.android.gms:play-services:12.0.1'
+
+	//compile 'com.google.android.gms:play-services:12.0.1'
     implementation 'com.google.android.gms:play-services-safetynet:12.0.1'
     implementation 'com.google.android.gms:play-services-analytics:12.0.1'
-    implementation 'com.google.android.gms:play-services-identity:12.0.1'
-    implementation 'com.google.android.gms:play-services-plus:12.0.1'
-    implementation 'com.google.android.gms:play-services-ads:12.0.1'
-    implementation 'com.google.android.gms:play-services-auth:12.0.1'
+    //implementation 'com.google.android.gms:play-services-identity:12.0.1'
+    //implementation 'com.google.android.gms:play-services-plus:12.0.1'
+    //implementation 'com.google.android.gms:play-services-ads:12.0.1'
+    //implementation 'com.google.android.gms:play-services-auth:12.0.1'
     implementation 'com.google.android.gms:play-services-gcm:12.0.1'
-//
+
     implementation 'com.android.support:multidex:1.0.1'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
@@ -87,5 +87,4 @@ android {
 			**SIGNCONFIG**
 		}
 	}
-
 }
